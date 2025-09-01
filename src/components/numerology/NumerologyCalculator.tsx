@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { FormEvent } from "react";
 import {
   Card,
   CardContent,
@@ -35,6 +36,27 @@ export default function NumerologyCalculator() {
   const [isCalculating, setIsCalculating] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
   const [showReport, setShowReport] = useState(false);
+
+  const resultsRef = useRef<HTMLDivElement | null>(null);
+  const detailRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (results && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [results]);
+
+  useEffect(() => {
+    if (selectedNumber && detailRef.current) {
+      detailRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [selectedNumber]);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!fullName || !birthDate || isCalculating) return;
+    handleCalculate();
+  };
 
   const handleCalculate = () => {
     if (!fullName || !birthDate) return;
@@ -154,38 +176,40 @@ export default function NumerologyCalculator() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="fullName">Họ và tên đầy đủ</Label>
-            <Input
-              id="fullName"
-              placeholder="Ví dụ: Nguyễn Văn An"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="fullName">Họ và tên đầy đủ</Label>
+              <Input
+                id="fullName"
+                placeholder="Ví dụ: Nguyễn Văn An"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="birthDate">Ngày sinh</Label>
-            <Input
-              id="birthDate"
-              type="date"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-            />
-          </div>
+            <div className="space-y-2">
+              <Label htmlFor="birthDate">Ngày sinh</Label>
+              <Input
+                id="birthDate"
+                type="date"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+              />
+            </div>
 
-          <Button
-            onClick={handleCalculate}
-            disabled={!fullName || !birthDate || isCalculating}
-            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-          >
-            {isCalculating ? "Đang tính toán..." : "Tính toán thần số học"}
-          </Button>
+            <Button
+              type="submit"
+              disabled={!fullName || !birthDate || isCalculating}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+            >
+              {isCalculating ? "Đang tính toán..." : "Tính toán thần số học"}
+            </Button>
+          </form>
         </CardContent>
       </Card>
 
       {results && (
-        <div className="space-y-6">
+        <div ref={resultsRef} className="space-y-6">
           {/* Kết quả chính */}
           <Card>
             <CardHeader>
@@ -312,188 +336,193 @@ export default function NumerologyCalculator() {
 
           {/* Thông tin chi tiết số được chọn */}
           {selectedNumber && getNumberMeaning(selectedNumber) && (
-            <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 border-2 border-blue-200">
-              <CardHeader className="text-center">
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  <div
-                    className={`w-20 h-20 rounded-full flex items-center justify-center text-4xl font-bold bg-gradient-to-r ${getNumberColor(
-                      selectedNumber
-                    )} text-white`}
-                  >
-                    {selectedNumber}
-                  </div>
-                  {masterNumbers.find((m) => m.number === selectedNumber) && (
-                    <Badge variant="destructive" className="text-sm px-3 py-1">
-                      Master Number
-                    </Badge>
-                  )}
-                </div>
-                <CardTitle className="text-2xl text-blue-600">
-                  {getNumberMeaning(selectedNumber)?.title}
-                </CardTitle>
-                <CardDescription className="text-lg max-w-3xl mx-auto">
-                  {getNumberMeaning(selectedNumber)?.description}
-                </CardDescription>
-              </CardHeader>
-
-              <CardContent className="space-y-6">
-                {/* Từ khóa chính */}
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 text-center text-blue-600">
-                    Từ khóa chính
-                  </h3>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {getNumberMeaning(selectedNumber)?.keywords.map(
-                      (keyword, index) => (
-                        <Badge
-                          key={index}
-                          variant="secondary"
-                          className="px-3 py-1 text-sm"
-                        >
-                          {keyword}
-                        </Badge>
-                      )
+            <div ref={detailRef}>
+              <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 border-2 border-blue-200">
+                <CardHeader className="text-center">
+                  <div className="flex items-center justify-center gap-4 mb-4">
+                    <div
+                      className={`w-20 h-20 rounded-full flex items-center justify-center text-4xl font-bold bg-gradient-to-r ${getNumberColor(
+                        selectedNumber
+                      )} text-white`}
+                    >
+                      {selectedNumber}
+                    </div>
+                    {masterNumbers.find((m) => m.number === selectedNumber) && (
+                      <Badge
+                        variant="destructive"
+                        className="text-sm px-3 py-1"
+                      >
+                        Master Number
+                      </Badge>
                     )}
                   </div>
-                </div>
+                  <CardTitle className="text-2xl text-blue-600">
+                    {getNumberMeaning(selectedNumber)?.title}
+                  </CardTitle>
+                  <CardDescription className="text-lg max-w-3xl mx-auto">
+                    {getNumberMeaning(selectedNumber)?.description}
+                  </CardDescription>
+                </CardHeader>
 
-                <Separator />
-
-                {/* Điểm mạnh và thách thức */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-semibold text-green-600 text-center">
-                      Điểm mạnh
-                    </h3>
-                    <ul className="space-y-2">
-                      {getNumberMeaning(selectedNumber)?.strengths.map(
-                        (strength, index) => (
-                          <li
-                            key={index}
-                            className="flex items-center gap-3 p-3 bg-green-50 rounded-lg"
-                          >
-                            <span className="text-green-500 text-lg mt-0.5">
-                              ✓
-                            </span>
-                            <span className="text-sm">{strength}</span>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-semibold text-orange-600 text-center">
-                      Thách thức
-                    </h3>
-                    <ul className="space-y-2">
-                      {getNumberMeaning(selectedNumber)?.challenges.map(
-                        (challenge, index) => (
-                          <li
-                            key={index}
-                            className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg"
-                          >
-                            <span className="text-orange-500 text-lg mt-0.5">
-                              ⚠
-                            </span>
-                            <span className="text-sm">{challenge}</span>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                </div>
-
-                <Separator />
-
-                {/* Nghề nghiệp và tình yêu */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-semibold text-blue-600 text-center">
-                      Nghề nghiệp phù hợp
+                <CardContent className="space-y-6">
+                  {/* Từ khóa chính */}
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3 text-center text-blue-600">
+                      Từ khóa chính
                     </h3>
                     <div className="flex flex-wrap gap-2 justify-center">
-                      {getNumberMeaning(selectedNumber)?.career.map(
-                        (career, index) => (
+                      {getNumberMeaning(selectedNumber)?.keywords.map(
+                        (keyword, index) => (
                           <Badge
                             key={index}
-                            variant="outline"
-                            className="px-3 py-1"
+                            variant="secondary"
+                            className="px-3 py-1 text-sm"
                           >
-                            {career}
+                            {keyword}
                           </Badge>
                         )
                       )}
                     </div>
                   </div>
 
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-semibold text-pink-600 text-center">
-                      Tình yêu
-                    </h3>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {getNumberMeaning(selectedNumber)?.love.map(
-                        (love, index) => (
-                          <Badge
-                            key={index}
-                            variant="outline"
-                            className="px-3 py-1"
-                          >
-                            {love}
-                          </Badge>
-                        )
-                      )}
-                    </div>
-                  </div>
-                </div>
+                  <Separator />
 
-                {/* Thông tin bổ sung cho Master Numbers */}
-                {masterNumbers.find((m) => m.number === selectedNumber) && (
-                  <>
-                    <Separator />
-                    <div className="text-center p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                      <h3 className="text-xl font-semibold text-purple-600 mb-3">
-                        Đặc biệt về Master Number {selectedNumber}
+                  {/* Điểm mạnh và thách thức */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-semibold text-green-600 text-center">
+                        Điểm mạnh
                       </h3>
-                      <p className="text-muted-foreground">
-                        Master Numbers là những con số đặc biệt trong thần số
-                        học, mang năng lượng mạnh mẽ và ý nghĩa sâu sắc. Chúng
-                        thường xuất hiện ở những người có sứ mệnh đặc biệt hoặc
-                        có tiềm năng phát triển tâm linh cao.
-                      </p>
+                      <ul className="space-y-2">
+                        {getNumberMeaning(selectedNumber)?.strengths.map(
+                          (strength, index) => (
+                            <li
+                              key={index}
+                              className="flex items-center gap-3 p-3 bg-green-50 rounded-lg"
+                            >
+                              <span className="text-green-500 text-lg mt-0.5">
+                                ✓
+                              </span>
+                              <span className="text-sm">{strength}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
                     </div>
-                  </>
-                )}
 
-                {/* Nút hành động */}
-                <div className="text-center space-y-3">
-                  {/* Link đến bài viết blog nếu có */}
-                  {selectedNumber && hasBlogPostForNumber(selectedNumber) && (
-                    <div>
-                      <Link
-                        href={getBlogPostUrlForNumber(selectedNumber)!}
-                        className="inline-block"
-                      >
-                        <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-2">
-                          📚 Đọc bài viết chi tiết về số {selectedNumber}
-                        </Button>
-                      </Link>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        Khám phá thêm nhiều thông tin hữu ích về con số này
-                      </p>
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-semibold text-orange-600 text-center">
+                        Thách thức
+                      </h3>
+                      <ul className="space-y-2">
+                        {getNumberMeaning(selectedNumber)?.challenges.map(
+                          (challenge, index) => (
+                            <li
+                              key={index}
+                              className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg"
+                            >
+                              <span className="text-orange-500 text-lg mt-0.5">
+                                ⚠
+                              </span>
+                              <span className="text-sm">{challenge}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
                     </div>
+                  </div>
+
+                  <Separator />
+
+                  {/* Nghề nghiệp và tình yêu */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-semibold text-blue-600 text-center">
+                        Nghề nghiệp phù hợp
+                      </h3>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {getNumberMeaning(selectedNumber)?.career.map(
+                          (career, index) => (
+                            <Badge
+                              key={index}
+                              variant="outline"
+                              className="px-3 py-1"
+                            >
+                              {career}
+                            </Badge>
+                          )
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-semibold text-pink-600 text-center">
+                        Tình yêu
+                      </h3>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {getNumberMeaning(selectedNumber)?.love.map(
+                          (love, index) => (
+                            <Badge
+                              key={index}
+                              variant="outline"
+                              className="px-3 py-1"
+                            >
+                              {love}
+                            </Badge>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Thông tin bổ sung cho Master Numbers */}
+                  {masterNumbers.find((m) => m.number === selectedNumber) && (
+                    <>
+                      <Separator />
+                      <div className="text-center p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                        <h3 className="text-xl font-semibold text-purple-600 mb-3">
+                          Đặc biệt về Master Number {selectedNumber}
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Master Numbers là những con số đặc biệt trong thần số
+                          học, mang năng lượng mạnh mẽ và ý nghĩa sâu sắc. Chúng
+                          thường xuất hiện ở những người có sứ mệnh đặc biệt
+                          hoặc có tiềm năng phát triển tâm linh cao.
+                        </p>
+                      </div>
+                    </>
                   )}
 
-                  <Button
-                    variant="outline"
-                    onClick={() => setSelectedNumber(null)}
-                    className="px-6 py-2"
-                  >
-                    ✕ Đóng
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                  {/* Nút hành động */}
+                  <div className="text-center space-y-3">
+                    {/* Link đến bài viết blog nếu có */}
+                    {selectedNumber && hasBlogPostForNumber(selectedNumber) && (
+                      <div>
+                        <Link
+                          href={getBlogPostUrlForNumber(selectedNumber)!}
+                          className="inline-block"
+                        >
+                          <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-2">
+                            📚 Đọc bài viết chi tiết về số {selectedNumber}
+                          </Button>
+                        </Link>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Khám phá thêm nhiều thông tin hữu ích về con số này
+                        </p>
+                      </div>
+                    )}
+
+                    <Button
+                      variant="outline"
+                      onClick={() => setSelectedNumber(null)}
+                      className="px-6 py-2"
+                    >
+                      ✕ Đóng
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           )}
 
           {/* Phân tích chi tiết số chủ đạo */}
