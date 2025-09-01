@@ -114,19 +114,6 @@ export default function CompatibilityPage() {
     }
   };
 
-  const getCompatibilityColor = (level: string) => {
-    switch (level) {
-      case "best":
-        return "text-green-600 bg-green-100";
-      case "good":
-        return "text-blue-600 bg-blue-100";
-      case "challenging":
-        return "text-orange-600 bg-orange-100";
-      default:
-        return "text-gray-600 bg-gray-100";
-    }
-  };
-
   const getCompatibilityText = (level: string) => {
     switch (level) {
       case "best":

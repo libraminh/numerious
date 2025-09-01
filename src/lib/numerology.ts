@@ -1,3 +1,21 @@
+import {
+  detailedCompatibility,
+  additionalCompatibilityPairs,
+} from "../data/numerology-data";
+
+export interface CompatibilityDetail {
+  level: "best" | "good" | "challenging";
+  percentage: number;
+  title: string;
+  description: string;
+  strengths: string[];
+  challenges: string[];
+  advice: string[];
+  loveCompatibility: string;
+  careerCompatibility: string;
+  friendshipCompatibility: string;
+}
+
 export interface NumerologyResult {
   lifePathNumber: number;
   soulNumber: number;
@@ -254,18 +272,7 @@ export function calculateCompatibility(
 export function calculateDetailedCompatibility(
   num1: number,
   num2: number
-): {
-  level: "best" | "good" | "challenging";
-  percentage: number;
-  title: string;
-  description: string;
-  strengths: string[];
-  challenges: string[];
-  advice: string[];
-  loveCompatibility: string;
-  careerCompatibility: string;
-  friendshipCompatibility: string;
-} {
+): CompatibilityDetail {
   // Rút gọn về số cơ bản nếu không phải master number
   const baseNum1 = isMasterNumber(num1) ? num1 : sumDigits(num1);
   const baseNum2 = isMasterNumber(num2) ? num2 : sumDigits(num2);
@@ -276,15 +283,10 @@ export function calculateDetailedCompatibility(
       ? `${baseNum1}-${baseNum2}`
       : `${baseNum2}-${baseNum1}`;
 
-  // Import detailedCompatibility từ data file
-  const {
-    detailedCompatibility,
-    additionalCompatibilityPairs,
-  } = require("../data/numerology-data");
-
   // Tìm thông tin chi tiết
   const detailedInfo =
-    detailedCompatibility[key] || additionalCompatibilityPairs[key];
+    (detailedCompatibility as Record<string, CompatibilityDetail>)[key] ||
+    (additionalCompatibilityPairs as Record<string, CompatibilityDetail>)[key];
 
   if (detailedInfo) {
     return detailedInfo;
