@@ -245,3 +245,417 @@ export const compatibilityMatrix = {
   8: { best: [2, 4, 6, 8], good: [1, 7], challenging: [3, 5, 9] },
   9: { best: [2, 6, 9], good: [5], challenging: [1, 3, 4, 7, 8] },
 };
+
+// Chi tiết tương thích cho từng cặp số
+export const detailedCompatibility = {
+  "1-1": {
+    level: "best",
+    percentage: 95,
+    title: "Hai Người Lãnh Đạo",
+    description:
+      "Cả hai đều có tinh thần lãnh đạo mạnh mẽ, tạo nên một cặp đôi quyền lực và đầy tham vọng.",
+    strengths: [
+      "Cùng chia sẻ tầm nhìn và mục tiêu",
+      "Hỗ trợ lẫn nhau trong sự nghiệp",
+      "Tạo động lực mạnh mẽ cho nhau",
+      "Có khả năng xây dựng đế chế cùng nhau",
+    ],
+    challenges: [
+      "Có thể tranh giành quyền lãnh đạo",
+      "Cần học cách nhường nhịn",
+      "Tránh cạnh tranh không lành mạnh",
+    ],
+    advice: [
+      "Hãy phân chia vai trò rõ ràng trong mối quan hệ",
+      "Học cách lắng nghe và tôn trọng ý kiến của nhau",
+      "Tạo không gian riêng cho mỗi người phát triển",
+    ],
+    loveCompatibility: "Rất cao - Tình yêu nồng nhiệt và đầy đam mê",
+    careerCompatibility:
+      "Xuất sắc - Có thể trở thành đối tác kinh doanh tuyệt vời",
+    friendshipCompatibility:
+      "Tốt - Tình bạn dựa trên sự tôn trọng và ngưỡng mộ",
+  },
+  "1-2": {
+    level: "challenging",
+    percentage: 45,
+    title: "Lãnh Đạo và Hợp Tác",
+    description:
+      "Sự khác biệt về tính cách có thể tạo ra thách thức, nhưng cũng có thể bổ sung cho nhau.",
+    strengths: [
+      "Số 1 mang lại sự quyết đoán",
+      "Số 2 mang lại sự nhạy cảm và hòa giải",
+      "Có thể cân bằng lẫn nhau",
+    ],
+    challenges: [
+      "Số 1 có thể quá độc đoán",
+      "Số 2 có thể quá nhạy cảm",
+      "Khác biệt về cách tiếp cận vấn đề",
+    ],
+    advice: [
+      "Số 1 cần học cách kiên nhẫn và lắng nghe",
+      "Số 2 cần học cách quyết đoán hơn",
+      "Tìm điểm chung và tôn trọng sự khác biệt",
+    ],
+    loveCompatibility: "Trung bình - Cần nỗ lực để hiểu nhau",
+    careerCompatibility: "Tốt - Bổ sung kỹ năng cho nhau",
+    friendshipCompatibility: "Khá - Có thể học hỏi từ nhau",
+  },
+  "1-3": {
+    level: "good",
+    percentage: 75,
+    title: "Lãnh Đạo và Sáng Tạo",
+    description:
+      "Một cặp đôi năng động với sự kết hợp giữa tham vọng và sáng tạo.",
+    strengths: [
+      "Cùng có tinh thần tích cực",
+      "Số 1 cung cấp định hướng, số 3 mang lại sự sáng tạo",
+      "Có thể tạo ra những dự án thú vị",
+    ],
+    challenges: [
+      "Cả hai đều có thể thiếu kiên nhẫn",
+      "Cần học cách tập trung vào mục tiêu",
+    ],
+    advice: [
+      "Hãy kết hợp tham vọng với sáng tạo",
+      "Học cách kiên nhẫn và hoàn thành dự án",
+      "Tận dụng năng lượng tích cực của nhau",
+    ],
+    loveCompatibility: "Cao - Tình yêu đầy năng lượng và niềm vui",
+    careerCompatibility: "Rất tốt - Có thể tạo ra những sản phẩm sáng tạo",
+    friendshipCompatibility: "Tốt - Tình bạn vui vẻ và đầy cảm hứng",
+  },
+  "1-4": {
+    level: "challenging",
+    percentage: 50,
+    title: "Lãnh Đạo và Thực Tế",
+    description:
+      "Sự khác biệt giữa tinh thần mạo hiểm và thực tế có thể tạo ra xung đột.",
+    strengths: [
+      "Số 1 mang lại tầm nhìn, số 4 mang lại sự ổn định",
+      "Có thể tạo ra sự cân bằng tốt",
+    ],
+    challenges: [
+      "Số 1 có thể thấy số 4 quá chậm chạp",
+      "Số 4 có thể thấy số 1 quá mạo hiểm",
+      "Khác biệt về tốc độ và cách tiếp cận",
+    ],
+    advice: [
+      "Học cách tôn trọng phong cách của nhau",
+      "Số 1 cần kiên nhẫn, số 4 cần linh hoạt hơn",
+      "Tìm cách kết hợp tầm nhìn với thực tế",
+    ],
+    loveCompatibility: "Trung bình - Cần thời gian để hiểu nhau",
+    careerCompatibility: "Tốt - Có thể tạo ra dự án bền vững",
+    friendshipCompatibility: "Khá - Có thể học hỏi từ nhau",
+  },
+  "1-5": {
+    level: "best",
+    percentage: 90,
+    title: "Lãnh Đạo và Phiêu Lưu",
+    description: "Một cặp đôi hoàn hảo với sự kết hợp giữa tham vọng và tự do.",
+    strengths: [
+      "Cùng yêu thích tự do và phiêu lưu",
+      "Có thể tạo ra những dự án đầy thú vị",
+      "Hỗ trợ lẫn nhau trong việc khám phá",
+    ],
+    challenges: ["Cả hai đều có thể thiếu cam kết", "Cần học cách ổn định"],
+    advice: [
+      "Hãy tận dụng năng lượng tích cực của nhau",
+      "Học cách cân bằng tự do và trách nhiệm",
+      "Tạo ra những trải nghiệm thú vị cùng nhau",
+    ],
+    loveCompatibility: "Rất cao - Tình yêu đầy phiêu lưu và đam mê",
+    careerCompatibility: "Xuất sắc - Có thể tạo ra những dự án đổi mới",
+    friendshipCompatibility: "Tuyệt vời - Tình bạn đầy thú vị và khám phá",
+  },
+  "1-6": {
+    level: "challenging",
+    percentage: 40,
+    title: "Lãnh Đạo và Chăm Sóc",
+    description:
+      "Sự khác biệt về ưu tiên có thể tạo ra thách thức trong mối quan hệ.",
+    strengths: [
+      "Số 1 mang lại tham vọng, số 6 mang lại sự chăm sóc",
+      "Có thể tạo ra sự cân bằng",
+    ],
+    challenges: [
+      "Số 1 có thể thấy số 6 quá bảo thủ",
+      "Số 6 có thể thấy số 1 quá ích kỷ",
+      "Khác biệt về ưu tiên cuộc sống",
+    ],
+    advice: [
+      "Học cách tôn trọng giá trị của nhau",
+      "Số 1 cần học cách chăm sóc người khác",
+      "Số 6 cần học cách ủng hộ tham vọng của đối phương",
+    ],
+    loveCompatibility: "Thấp - Cần nỗ lực lớn để hiểu nhau",
+    careerCompatibility: "Trung bình - Có thể bổ sung kỹ năng",
+    friendshipCompatibility: "Khá - Có thể học hỏi từ nhau",
+  },
+  "1-7": {
+    level: "best",
+    percentage: 85,
+    title: "Lãnh Đạo và Tìm Kiếm",
+    description:
+      "Một cặp đôi trí tuệ với sự kết hợp giữa tham vọng và trí tuệ.",
+    strengths: [
+      "Cùng có tinh thần độc lập",
+      "Số 1 mang lại hành động, số 7 mang lại trí tuệ",
+      "Có thể tạo ra những dự án sâu sắc",
+    ],
+    challenges: [
+      "Cả hai đều có thể quá độc lập",
+      "Cần học cách giao tiếp tốt hơn",
+    ],
+    advice: [
+      "Hãy tận dụng trí tuệ của nhau",
+      "Học cách chia sẻ suy nghĩ và cảm xúc",
+      "Tạo ra không gian riêng nhưng vẫn kết nối",
+    ],
+    loveCompatibility: "Cao - Tình yêu sâu sắc và trí tuệ",
+    careerCompatibility: "Xuất sắc - Có thể tạo ra những dự án đột phá",
+    friendshipCompatibility: "Tốt - Tình bạn dựa trên sự tôn trọng trí tuệ",
+  },
+  "1-8": {
+    level: "good",
+    percentage: 70,
+    title: "Lãnh Đạo và Thành Công",
+    description:
+      "Một cặp đôi quyền lực với sự kết hợp giữa tham vọng và thành công.",
+    strengths: [
+      "Cùng có tinh thần thành công",
+      "Có thể tạo ra đế chế kinh doanh",
+      "Hỗ trợ lẫn nhau trong sự nghiệp",
+    ],
+    challenges: [
+      "Có thể cạnh tranh quyền lực",
+      "Cần học cách chia sẻ thành công",
+    ],
+    advice: [
+      "Hãy trở thành đối tác thay vì đối thủ",
+      "Học cách chia sẻ quyền lực và thành công",
+      "Tạo ra mục tiêu chung",
+    ],
+    loveCompatibility: "Cao - Tình yêu dựa trên sự tôn trọng và thành công",
+    careerCompatibility: "Xuất sắc - Có thể tạo ra đế chế kinh doanh",
+    friendshipCompatibility: "Tốt - Tình bạn dựa trên sự ngưỡng mộ",
+  },
+  "1-9": {
+    level: "challenging",
+    percentage: 35,
+    title: "Lãnh Đạo và Hoàn Thiện",
+    description: "Sự khác biệt về ưu tiên có thể tạo ra thách thức lớn.",
+    strengths: [
+      "Số 1 mang lại hành động, số 9 mang lại tầm nhìn",
+      "Có thể tạo ra sự cân bằng",
+    ],
+    challenges: [
+      "Số 1 có thể thấy số 9 quá lý tưởng",
+      "Số 9 có thể thấy số 1 quá ích kỷ",
+      "Khác biệt về mục tiêu cuộc sống",
+    ],
+    advice: [
+      "Học cách tôn trọng giá trị của nhau",
+      "Số 1 cần học cách phục vụ người khác",
+      "Số 9 cần học cách ủng hộ tham vọng cá nhân",
+    ],
+    loveCompatibility: "Thấp - Cần nỗ lực rất lớn",
+    careerCompatibility: "Trung bình - Có thể tạo ra dự án ý nghĩa",
+    friendshipCompatibility: "Khá - Có thể học hỏi từ nhau",
+  },
+};
+
+// Thêm các cặp tương thích khác
+export const additionalCompatibilityPairs = {
+  "2-2": {
+    level: "best",
+    percentage: 95,
+    title: "Hai Người Hợp Tác",
+    description: "Một cặp đôi hòa hợp với sự hiểu biết sâu sắc về nhau.",
+    strengths: [
+      "Cùng có khả năng hòa giải",
+      "Hiểu nhau một cách tự nhiên",
+      "Tạo ra môi trường hòa bình",
+    ],
+    challenges: ["Có thể thiếu quyết đoán", "Cần học cách đưa ra quyết định"],
+    advice: [
+      "Hãy tận dụng khả năng hòa giải của nhau",
+      "Học cách quyết đoán khi cần thiết",
+      "Tạo ra môi trường an toàn cho nhau",
+    ],
+    loveCompatibility: "Rất cao - Tình yêu hòa hợp và sâu sắc",
+    careerCompatibility: "Tốt - Có thể tạo ra môi trường làm việc hòa hợp",
+    friendshipCompatibility: "Tuyệt vời - Tình bạn dựa trên sự hiểu biết",
+  },
+  "2-3": {
+    level: "challenging",
+    percentage: 45,
+    title: "Hợp Tác và Sáng Tạo",
+    description: "Sự khác biệt về cách tiếp cận có thể tạo ra thách thức.",
+    strengths: [
+      "Số 2 mang lại sự nhạy cảm, số 3 mang lại sự sáng tạo",
+      "Có thể tạo ra sự cân bằng",
+    ],
+    challenges: [
+      "Số 2 có thể thấy số 3 quá hời hợt",
+      "Số 3 có thể thấy số 2 quá nhạy cảm",
+      "Khác biệt về cách thể hiện cảm xúc",
+    ],
+    advice: [
+      "Học cách tôn trọng phong cách của nhau",
+      "Số 2 cần học cách vui vẻ hơn",
+      "Số 3 cần học cách nhạy cảm hơn",
+    ],
+    loveCompatibility: "Trung bình - Cần nỗ lực để hiểu nhau",
+    careerCompatibility: "Tốt - Có thể tạo ra dự án sáng tạo",
+    friendshipCompatibility: "Khá - Có thể học hỏi từ nhau",
+  },
+  "3-3": {
+    level: "best",
+    percentage: 90,
+    title: "Hai Người Sáng Tạo",
+    description:
+      "Một cặp đôi đầy năng lượng và sáng tạo, luôn mang lại niềm vui cho nhau.",
+    strengths: [
+      "Cùng có tinh thần lạc quan",
+      "Tạo ra môi trường vui vẻ",
+      "Hỗ trợ nhau trong sáng tạo",
+    ],
+    challenges: ["Có thể thiếu thực tế", "Cần học cách tập trung"],
+    advice: [
+      "Hãy tận dụng năng lượng tích cực của nhau",
+      "Học cách hoàn thành dự án",
+      "Tạo ra những trải nghiệm thú vị",
+    ],
+    loveCompatibility: "Rất cao - Tình yêu đầy niềm vui và sáng tạo",
+    careerCompatibility: "Tốt - Có thể tạo ra những dự án sáng tạo",
+    friendshipCompatibility: "Tuyệt vời - Tình bạn đầy thú vị",
+  },
+  "4-4": {
+    level: "best",
+    percentage: 95,
+    title: "Hai Người Thực Tế",
+    description:
+      "Một cặp đôi ổn định và đáng tin cậy, có thể xây dựng tương lai vững chắc.",
+    strengths: [
+      "Cùng có tính cách ổn định",
+      "Hiểu nhau về giá trị thực tế",
+      "Có thể xây dựng nền tảng vững chắc",
+    ],
+    challenges: ["Có thể thiếu sự linh hoạt", "Cần học cách thích nghi"],
+    advice: [
+      "Hãy tận dụng sự ổn định của nhau",
+      "Học cách linh hoạt khi cần thiết",
+      "Xây dựng kế hoạch dài hạn",
+    ],
+    loveCompatibility: "Rất cao - Tình yêu ổn định và bền vững",
+    careerCompatibility: "Xuất sắc - Có thể tạo ra dự án bền vững",
+    friendshipCompatibility: "Tuyệt vời - Tình bạn đáng tin cậy",
+  },
+  "5-5": {
+    level: "best",
+    percentage: 85,
+    title: "Hai Người Phiêu Lưu",
+    description:
+      "Một cặp đôi đầy năng lượng và tự do, luôn tìm kiếm những trải nghiệm mới.",
+    strengths: [
+      "Cùng yêu thích tự do",
+      "Hỗ trợ nhau trong khám phá",
+      "Tạo ra những trải nghiệm thú vị",
+    ],
+    challenges: ["Có thể thiếu cam kết", "Cần học cách ổn định"],
+    advice: [
+      "Hãy tận dụng tinh thần phiêu lưu của nhau",
+      "Học cách cân bằng tự do và trách nhiệm",
+      "Tạo ra những kỷ niệm đẹp",
+    ],
+    loveCompatibility: "Cao - Tình yêu đầy phiêu lưu và tự do",
+    careerCompatibility: "Tốt - Có thể tạo ra dự án đổi mới",
+    friendshipCompatibility: "Tuyệt vời - Tình bạn đầy thú vị",
+  },
+  "6-6": {
+    level: "best",
+    percentage: 95,
+    title: "Hai Người Chăm Sóc",
+    description:
+      "Một cặp đôi đầy tình yêu thương và trách nhiệm, luôn chăm sóc lẫn nhau.",
+    strengths: [
+      "Cùng có tình yêu thương",
+      "Hiểu nhau về trách nhiệm",
+      "Tạo ra môi trường ấm áp",
+    ],
+    challenges: ["Có thể quá lo lắng", "Cần học cách thư giãn"],
+    advice: [
+      "Hãy tận dụng tình yêu thương của nhau",
+      "Học cách chăm sóc bản thân",
+      "Tạo ra gia đình hạnh phúc",
+    ],
+    loveCompatibility: "Rất cao - Tình yêu đầy tình yêu thương",
+    careerCompatibility: "Tốt - Có thể tạo ra môi trường chăm sóc",
+    friendshipCompatibility: "Tuyệt vời - Tình bạn đầy tình yêu thương",
+  },
+  "7-7": {
+    level: "best",
+    percentage: 90,
+    title: "Hai Người Tìm Kiếm",
+    description:
+      "Một cặp đôi trí tuệ và sâu sắc, luôn tìm kiếm ý nghĩa cuộc sống.",
+    strengths: [
+      "Cùng có tinh thần tìm kiếm",
+      "Hiểu nhau về trí tuệ",
+      "Có thể tạo ra những cuộc trò chuyện sâu sắc",
+    ],
+    challenges: ["Có thể quá cô lập", "Cần học cách giao tiếp"],
+    advice: [
+      "Hãy tận dụng trí tuệ của nhau",
+      "Học cách chia sẻ suy nghĩ",
+      "Tạo ra không gian riêng nhưng vẫn kết nối",
+    ],
+    loveCompatibility: "Cao - Tình yêu sâu sắc và trí tuệ",
+    careerCompatibility: "Xuất sắc - Có thể tạo ra dự án nghiên cứu",
+    friendshipCompatibility: "Tuyệt vời - Tình bạn dựa trên trí tuệ",
+  },
+  "8-8": {
+    level: "best",
+    percentage: 85,
+    title: "Hai Người Thành Công",
+    description:
+      "Một cặp đôi quyền lực và tham vọng, có thể tạo ra đế chế kinh doanh.",
+    strengths: [
+      "Cùng có tinh thần thành công",
+      "Hỗ trợ nhau trong sự nghiệp",
+      "Có thể tạo ra đế chế kinh doanh",
+    ],
+    challenges: ["Có thể cạnh tranh quyền lực", "Cần học cách chia sẻ"],
+    advice: [
+      "Hãy trở thành đối tác thay vì đối thủ",
+      "Học cách chia sẻ thành công",
+      "Tạo ra mục tiêu chung",
+    ],
+    loveCompatibility: "Cao - Tình yêu dựa trên thành công",
+    careerCompatibility: "Xuất sắc - Có thể tạo ra đế chế kinh doanh",
+    friendshipCompatibility: "Tốt - Tình bạn dựa trên sự ngưỡng mộ",
+  },
+  "9-9": {
+    level: "best",
+    percentage: 95,
+    title: "Hai Người Hoàn Thiện",
+    description:
+      "Một cặp đôi đầy tình yêu thương và từ bi, luôn muốn giúp đỡ người khác.",
+    strengths: [
+      "Cùng có tình yêu thương",
+      "Hiểu nhau về sứ mệnh",
+      "Có thể tạo ra ảnh hưởng tích cực",
+    ],
+    challenges: ["Có thể quá lý tưởng", "Cần học cách thực tế"],
+    advice: [
+      "Hãy tận dụng tình yêu thương của nhau",
+      "Học cách cân bằng lý tưởng và thực tế",
+      "Tạo ra ảnh hưởng tích cực cho thế giới",
+    ],
+    loveCompatibility: "Rất cao - Tình yêu đầy tình yêu thương",
+    careerCompatibility: "Tốt - Có thể tạo ra dự án nhân đạo",
+    friendshipCompatibility: "Tuyệt vời - Tình bạn dựa trên tình yêu thương",
+  },
+};

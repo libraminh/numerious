@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import {
   calculateLifePathNumber,
   calculateCompatibility,
+  calculateDetailedCompatibility,
 } from "@/lib/numerology";
 import { numberMeanings, compatibilityMatrix } from "@/data/numerology-data";
 import Header from "@/components/layout/Header";
@@ -39,6 +40,17 @@ export default function CompatibilityPage() {
       best: number[];
       good: number[];
       challenging: number[];
+    };
+    detailedInfo?: {
+      percentage: number;
+      title: string;
+      description: string;
+      strengths: string[];
+      challenges: string[];
+      advice: string[];
+      loveCompatibility: string;
+      careerCompatibility: string;
+      friendshipCompatibility: string;
     };
   } | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
@@ -82,11 +94,18 @@ export default function CompatibilityPage() {
           person1.lifePathNumber as keyof typeof compatibilityMatrix
         ];
 
+      // Tính toán thông tin chi tiết
+      const detailedInfo = calculateDetailedCompatibility(
+        person1.lifePathNumber,
+        person2.lifePathNumber
+      );
+
       setCompatibility({
         level: compatibilityLevel,
         person1Number: person1.lifePathNumber,
         person2Number: person2.lifePathNumber,
         matrixInfo,
+        detailedInfo,
       });
     } catch (error) {
       console.error("Lỗi tính toán:", error);
@@ -280,119 +299,290 @@ export default function CompatibilityPage() {
 
           {/* Kết quả tương thích */}
           {compatibility && (
-            <Card className="bg-gradient-to-r from-purple-50 to-pink-50">
-              <CardHeader className="text-center">
-                <CardTitle className="text-3xl">Kết quả tương thích</CardTitle>
-                <CardDescription>
-                  Phân tích chi tiết về mối quan hệ giữa hai người
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Mức độ tương thích chính */}
-                <div className="text-center">
-                  <div
-                    className={`inline-block px-6 py-3 rounded-full text-lg font-semibold ${getCompatibilityColor(
-                      compatibility.level
-                    )}`}
-                  >
-                    {getCompatibilityText(compatibility.level)}
+            <div className="space-y-6">
+              {/* Header với hiệu ứng động */}
+              <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200">
+                <CardHeader className="text-center">
+                  <CardTitle className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    🔮 Kết Quả Tương Thích
+                  </CardTitle>
+                  <CardDescription className="text-lg">
+                    Phân tích chi tiết về mối quan hệ giữa hai người
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+
+              {/* Mức độ tương thích chính với thanh tiến trình */}
+              <Card className="bg-white shadow-lg">
+                <CardContent className="p-8">
+                  <div className="text-center space-y-6">
+                    <div className="space-y-4">
+                      <h2 className="text-2xl font-bold text-gray-800">
+                        {compatibility.detailedInfo?.title ||
+                          `${compatibility.person1Number} & ${compatibility.person2Number}`}
+                      </h2>
+
+                      {/* Thanh tiến trình tương thích */}
+                      <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                        <div
+                          className={`h-full transition-all duration-1000 ease-out ${
+                            compatibility.level === "best"
+                              ? "bg-gradient-to-r from-green-400 to-green-600"
+                              : compatibility.level === "good"
+                              ? "bg-gradient-to-r from-blue-400 to-blue-600"
+                              : "bg-gradient-to-r from-orange-400 to-orange-600"
+                          }`}
+                          style={{
+                            width: `${
+                              compatibility.detailedInfo?.percentage || 70
+                            }%`,
+                          }}
+                        />
+                      </div>
+
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">0%</span>
+                        <div className="text-center">
+                          <div
+                            className={`text-3xl font-bold ${
+                              compatibility.level === "best"
+                                ? "text-green-600"
+                                : compatibility.level === "good"
+                                ? "text-blue-600"
+                                : "text-orange-600"
+                            }`}
+                          >
+                            {compatibility.detailedInfo?.percentage || 70}%
+                          </div>
+                          <div
+                            className={`text-lg font-semibold ${
+                              compatibility.level === "best"
+                                ? "text-green-600"
+                                : compatibility.level === "good"
+                                ? "text-blue-600"
+                                : "text-orange-600"
+                            }`}
+                          >
+                            {getCompatibilityText(compatibility.level)}
+                          </div>
+                        </div>
+                        <span className="text-sm text-gray-600">100%</span>
+                      </div>
+                    </div>
+
+                    {/* Mô tả chi tiết */}
+                    {compatibility.detailedInfo?.description && (
+                      <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                        {compatibility.detailedInfo.description}
+                      </p>
+                    )}
                   </div>
-                  <p className="text-muted-foreground mt-2">
-                    Mức độ tương thích:{" "}
-                    {compatibility.level === "best"
-                      ? "90-100%"
-                      : compatibility.level === "good"
-                      ? "70-89%"
-                      : "50-69%"}
-                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Thông tin chi tiết về hai người */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+                  <CardContent className="p-6 text-center">
+                    <div className="space-y-4">
+                      <div className="w-20 h-20 mx-auto bg-purple-600 rounded-full flex items-center justify-center">
+                        <span className="text-3xl font-bold text-white">
+                          {compatibility.person1Number}
+                        </span>
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-purple-800">
+                          Người thứ nhất
+                        </h3>
+                        <p className="text-purple-600 font-medium">
+                          {getNumberMeaning(compatibility.person1Number)?.title}
+                        </p>
+                        <p className="text-sm text-purple-500 mt-2">
+                          {
+                            getNumberMeaning(compatibility.person1Number)
+                              ?.description
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-br from-pink-50 to-pink-100 border-pink-200">
+                  <CardContent className="p-6 text-center">
+                    <div className="space-y-4">
+                      <div className="w-20 h-20 mx-auto bg-pink-600 rounded-full flex items-center justify-center">
+                        <span className="text-3xl font-bold text-white">
+                          {compatibility.person2Number}
+                        </span>
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-pink-800">
+                          Người thứ hai
+                        </h3>
+                        <p className="text-pink-600 font-medium">
+                          {getNumberMeaning(compatibility.person2Number)?.title}
+                        </p>
+                        <p className="text-sm text-pink-500 mt-2">
+                          {
+                            getNumberMeaning(compatibility.person2Number)
+                              ?.description
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Phân tích chi tiết */}
+              {compatibility.detailedInfo && (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Điểm mạnh */}
+                  <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+                    <CardHeader>
+                      <CardTitle className="text-green-800 flex items-center gap-2">
+                        <span className="text-2xl">💪</span>
+                        Điểm Mạnh
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-3">
+                        {compatibility.detailedInfo.strengths.map(
+                          (strength, index) => (
+                            <li key={index} className="flex items-center gap-2">
+                              <span className="text-green-600 mt-1">✓</span>
+                              <span className="text-green-700 text-sm">
+                                {strength}
+                              </span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </CardContent>
+                  </Card>
+
+                  {/* Thách thức */}
+                  <Card className="bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
+                    <CardHeader>
+                      <CardTitle className="text-orange-800 flex items-center gap-2">
+                        <span className="text-2xl">⚠️</span>
+                        Thách Thức
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-3">
+                        {compatibility.detailedInfo.challenges.map(
+                          (challenge, index) => (
+                            <li key={index} className="flex items-center gap-2">
+                              <span className="text-orange-600 mt-1">!</span>
+                              <span className="text-orange-700 text-sm">
+                                {challenge}
+                              </span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </CardContent>
+                  </Card>
+
+                  {/* Lời khuyên */}
+                  <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+                    <CardHeader>
+                      <CardTitle className="text-blue-800 flex items-center gap-2">
+                        <span className="text-2xl">💡</span>
+                        Lời Khuyên
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-3">
+                        {compatibility.detailedInfo.advice.map(
+                          (advice, index) => (
+                            <li key={index} className="flex items-center gap-2">
+                              <span className="text-blue-600 mt-1">💡</span>
+                              <span className="text-blue-700 text-sm">
+                                {advice}
+                              </span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </CardContent>
+                  </Card>
                 </div>
+              )}
 
-                <div className="border-t my-4" />
+              {/* Tương thích theo từng khía cạnh */}
+              {compatibility.detailedInfo && (
+                <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-200">
+                  <CardHeader>
+                    <CardTitle className="text-center text-indigo-800 text-2xl">
+                      🎯 Tương Thích Theo Khía Cạnh
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                        <div className="text-3xl mb-2">💕</div>
+                        <h4 className="font-semibold text-gray-800 mb-2">
+                          Tình Yêu
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          {compatibility.detailedInfo.loveCompatibility}
+                        </p>
+                      </div>
 
-                {/* Thông tin chi tiết */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="text-center p-4 bg-white rounded-lg">
-                    <div className="text-3xl font-bold text-purple-600 mb-2">
-                      {compatibility.person1Number}
+                      <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                        <div className="text-3xl mb-2">💼</div>
+                        <h4 className="font-semibold text-gray-800 mb-2">
+                          Sự Nghiệp
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          {compatibility.detailedInfo.careerCompatibility}
+                        </p>
+                      </div>
+
+                      <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                        <div className="text-3xl mb-2">🤝</div>
+                        <h4 className="font-semibold text-gray-800 mb-2">
+                          Tình Bạn
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          {compatibility.detailedInfo.friendshipCompatibility}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-sm font-medium">Số chủ đạo</div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {getNumberMeaning(compatibility.person1Number)?.title}
-                    </div>
-                  </div>
+                  </CardContent>
+                </Card>
+              )}
 
-                  <div className="text-center p-4 bg-white rounded-lg">
-                    <div className="text-3xl font-bold text-pink-600 mb-2">
-                      {compatibility.person2Number}
-                    </div>
-                    <div className="text-sm font-medium">Số chủ đạo</div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {getNumberMeaning(compatibility.person2Number)?.title}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Giải thích tương thích */}
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-center">
-                    Giải thích tương thích
-                  </h3>
-
-                  {compatibility.level === "best" && (
-                    <div className="text-center p-4 bg-green-50 rounded-lg">
-                      <p className="text-green-700">
-                        🎉 Hai bạn có sự tương thích rất cao! Mối quan hệ này có
-                        tiềm năng phát triển mạnh mẽ và bền vững. Hãy tận dụng
-                        sự hòa hợp này để xây dựng tương lai tốt đẹp.
+              {/* Lưu ý quan trọng */}
+              <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
+                <CardContent className="p-6">
+                  <div className="text-center space-y-4">
+                    <h3 className="text-xl font-bold text-yellow-800 flex items-center justify-center gap-2">
+                      <span className="text-2xl">⚠️</span>
+                      Lưu Ý Quan Trọng
+                    </h3>
+                    <div className="max-w-4xl mx-auto space-y-3 text-yellow-700">
+                      <p>
+                        • Tương thích số học chỉ là một phần, quan trọng nhất
+                        vẫn là sự nỗ lực của cả hai
+                      </p>
+                      <p>• Hãy tôn trọng sự khác biệt và học hỏi từ nhau</p>
+                      <p>
+                        • Giao tiếp cởi mở và chân thành là chìa khóa của mọi
+                        mối quan hệ
+                      </p>
+                      <p>
+                        • Sử dụng hiểu biết về thần số học để hiểu rõ hơn về đối
+                        phương
                       </p>
                     </div>
-                  )}
-
-                  {compatibility.level === "good" && (
-                    <div className="text-center p-4 bg-blue-50 rounded-lg">
-                      <p className="text-blue-700">
-                        👍 Hai bạn có sự tương thích tốt. Mối quan hệ có thể
-                        phát triển tích cực với sự thấu hiểu và nhường nhịn lẫn
-                        nhau. Hãy kiên nhẫn và học hỏi từ nhau.
-                      </p>
-                    </div>
-                  )}
-
-                  {compatibility.level === "challenging" && (
-                    <div className="text-center p-4 bg-orange-50 rounded-lg">
-                      <p className="text-orange-700">
-                        ⚠️ Hai bạn có thể gặp một số thách thức trong mối quan
-                        hệ. Tuy nhiên, những thách thức này có thể trở thành cơ
-                        hội để cả hai cùng trưởng thành. Hãy giao tiếp cởi mở và
-                        tìm cách thỏa hiệp.
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Lời khuyên */}
-                <div className="bg-white p-6 rounded-lg">
-                  <h4 className="font-semibold text-lg mb-3 text-center">
-                    💡 Lời khuyên
-                  </h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li>
-                      • Tương thích số học chỉ là một phần, quan trọng nhất vẫn
-                      là sự nỗ lực của cả hai
-                    </li>
-                    <li>• Hãy tôn trọng sự khác biệt và học hỏi từ nhau</li>
-                    <li>
-                      • Giao tiếp cởi mở và chân thành là chìa khóa của mọi mối
-                      quan hệ
-                    </li>
-                    <li>
-                      • Sử dụng hiểu biết về thần số học để hiểu rõ hơn về đối
-                      phương
-                    </li>
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           )}
 
           {/* Thông tin bổ sung */}

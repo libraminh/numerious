@@ -250,6 +250,93 @@ export function calculateCompatibility(
   return "challenging";
 }
 
+// Tính tương thích chi tiết giữa hai số
+export function calculateDetailedCompatibility(
+  num1: number,
+  num2: number
+): {
+  level: "best" | "good" | "challenging";
+  percentage: number;
+  title: string;
+  description: string;
+  strengths: string[];
+  challenges: string[];
+  advice: string[];
+  loveCompatibility: string;
+  careerCompatibility: string;
+  friendshipCompatibility: string;
+} {
+  // Rút gọn về số cơ bản nếu không phải master number
+  const baseNum1 = isMasterNumber(num1) ? num1 : sumDigits(num1);
+  const baseNum2 = isMasterNumber(num2) ? num2 : sumDigits(num2);
+
+  // Tạo key cho cặp số (số nhỏ hơn trước)
+  const key =
+    baseNum1 <= baseNum2
+      ? `${baseNum1}-${baseNum2}`
+      : `${baseNum2}-${baseNum1}`;
+
+  // Import detailedCompatibility từ data file
+  const {
+    detailedCompatibility,
+    additionalCompatibilityPairs,
+  } = require("../data/numerology-data");
+
+  // Tìm thông tin chi tiết
+  const detailedInfo =
+    detailedCompatibility[key] || additionalCompatibilityPairs[key];
+
+  if (detailedInfo) {
+    return detailedInfo;
+  }
+
+  // Fallback cho các cặp chưa có thông tin chi tiết
+  const level = calculateCompatibility(num1, num2);
+  const percentage = level === "best" ? 85 : level === "good" ? 65 : 45;
+
+  return {
+    level,
+    percentage,
+    title: `Số ${baseNum1} và Số ${baseNum2}`,
+    description: `Mối quan hệ giữa số ${baseNum1} và số ${baseNum2} có mức độ tương thích ${
+      level === "best" ? "rất cao" : level === "good" ? "tốt" : "cần cố gắng"
+    }.`,
+    strengths: [
+      "Có thể học hỏi từ nhau",
+      "Bổ sung kỹ năng cho nhau",
+      "Tạo ra sự cân bằng",
+    ],
+    challenges: [
+      "Cần thời gian để hiểu nhau",
+      "Có thể có xung đột về quan điểm",
+      "Cần nỗ lực để duy trì mối quan hệ",
+    ],
+    advice: [
+      "Hãy tôn trọng sự khác biệt của nhau",
+      "Giao tiếp cởi mở và chân thành",
+      "Tìm điểm chung để xây dựng mối quan hệ",
+    ],
+    loveCompatibility:
+      level === "best"
+        ? "Cao - Tình yêu có tiềm năng phát triển tốt"
+        : level === "good"
+        ? "Trung bình - Cần nỗ lực để hiểu nhau"
+        : "Thấp - Cần nỗ lực lớn để duy trì",
+    careerCompatibility:
+      level === "best"
+        ? "Tốt - Có thể hợp tác hiệu quả"
+        : level === "good"
+        ? "Khá - Cần thời gian để hiểu nhau"
+        : "Trung bình - Cần nỗ lực để hợp tác",
+    friendshipCompatibility:
+      level === "best"
+        ? "Tốt - Tình bạn có thể phát triển"
+        : level === "good"
+        ? "Khá - Cần thời gian để hiểu nhau"
+        : "Trung bình - Cần nỗ lực để duy trì",
+  };
+}
+
 // Tìm tên phù hợp dựa trên số chủ đạo
 export function findCompatibleNames(
   lifePathNumber: number,
