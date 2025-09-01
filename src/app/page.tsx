@@ -14,7 +14,7 @@ import Footer from "@/components/layout/Footer";
 export default function HomePage() {
   const features = [
     {
-      title: "Máy tính thần số học",
+      title: "Tra cứu thần số học",
       description:
         "Tính toán chính xác các con số quan trọng trong cuộc sống bạn",
       icon: "🧮",

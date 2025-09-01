@@ -142,7 +142,7 @@ export default function NumerologyCalculator() {
             variant="outline"
             className="mb-6"
           >
-            ← Quay lại máy tính
+            ← Quay lại tra cứu
           </Button>
         </div>
         <NumerologyReport
@@ -159,7 +159,7 @@ export default function NumerologyCalculator() {
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="text-center space-y-4">
         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-          Máy Tính Thần Số Học
+          Tra Cứu Thần Số Học
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Khám phá bí ẩn của các con số trong cuộc sống bạn. Nhập tên và ngày
@@ -202,7 +202,7 @@ export default function NumerologyCalculator() {
               disabled={!fullName || !birthDate || isCalculating}
               className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
             >
-              {isCalculating ? "Đang tính toán..." : "Tính toán thần số học"}
+              {isCalculating ? "Đang tra cứu..." : "Tra cứu thần số học"}
             </Button>
           </form>
         </CardContent>

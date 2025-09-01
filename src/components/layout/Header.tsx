@@ -46,7 +46,7 @@ export default function Header() {
               href="/calculator"
               className="text-sm font-medium hover:text-primary transition-colors"
             >
-              Máy tính
+              Tra cứu
             </Link>
             <Link
               href="/meanings"
@@ -116,7 +116,7 @@ export default function Header() {
                     href="/calculator"
                     className="px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                   >
-                    Máy tính
+                    Tra cứu
                   </Link>
                   <Link
                     href="/meanings"

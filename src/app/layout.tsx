@@ -11,9 +11,9 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Numerious - Thần Số Học Việt Nam",
   description:
-    "Khám phá bí ẩn của các con số trong cuộc sống bạn. Máy tính thần số học, ý nghĩa các con số, tương thích và nhiều hơn nữa.",
+    "Khám phá bí ẩn của các con số trong cuộc sống bạn. Tra cứu thần số học, ý nghĩa các con số, tương thích và nhiều hơn nữa.",
   keywords:
-    "thần số học, numerology, máy tính thần số học, ý nghĩa số, tương thích số học, Việt Nam",
+    "thần số học, numerology, tra cứu thần số học, ý nghĩa số, tương thích số học, Việt Nam",
   authors: [{ name: "Numerious Team" }],
   creator: "Numerious",
   publisher: "Numerious",

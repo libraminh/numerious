@@ -54,7 +54,7 @@ export default function BlogActionButtons({
       <Link href="/calculator">
         <Button className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
           <span>🧮</span>
-          Thử máy tính thần số học
+          Thử tra cứu thần số học
         </Button>
       </Link>
     </div>

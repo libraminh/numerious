@@ -48,11 +48,11 @@ function ReportContent() {
                 Không tìm thấy dữ liệu báo cáo
               </h2>
               <p className="text-gray-600">
-                Vui lòng quay lại máy tính thần số học để tạo báo cáo mới.
+                Vui lòng quay lại tra cứu thần số học để tạo báo cáo mới.
               </p>
               <Link href="/calculator">
                 <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
-                  🧮 Quay lại máy tính
+                  🧮 Quay lại tra cứu
                 </Button>
               </Link>
             </div>

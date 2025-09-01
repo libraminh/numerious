@@ -26,7 +26,7 @@ export default function Footer() {
                   href="/calculator"
                   className="hover:text-primary transition-colors"
                 >
-                  Máy tính thần số học
+                  Tra cứu thần số học
                 </Link>
               </li>
               <li>
